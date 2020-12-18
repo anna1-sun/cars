@@ -12,21 +12,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "limit")
+@Table(name = "BacLimit")
 @IdClass(CategoryBacteriaId.class)
 public class Limit {
 
     @Id
-    @ManyToOne(targetEntity = Category.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
     @Id
-    @ManyToOne(targetEntity = Bacteria.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Bacteria.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "bacteria_id", referencedColumnName = "id")
     private Bacteria bacteria;
 
-    @Column(name = "limit")
+    @Column(name = "baclimit_value")
     private Integer limit;
 
 }

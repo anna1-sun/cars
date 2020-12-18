@@ -23,7 +23,7 @@ public class Bacteria {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "bacteria", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bacteria", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Limit> limitList = new ArrayList<>();
 }
 
