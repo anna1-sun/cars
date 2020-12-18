@@ -3,7 +3,6 @@ package com.company.springmvc.demo.data;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CollectionId;
 
 import javax.persistence.*;
 
@@ -23,6 +22,9 @@ public class Product {
     private String name;
     @Column(name = "shelf_life")
     private int shelfLife;
-    @Column(name = "category_id")
-    private int categoryId;
+
+    @OneToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
 }

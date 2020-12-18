@@ -47,7 +47,7 @@
             <td th:text="${product.getCode()}"></td>
             <td th:text="${product.getName()}"></td>
             <td th:text="${product.getShelfLife()}"></td>
-            <td th:text="${product.getCategoryId()}"></td>
+            <td th:text="${product.getCategory().getName()}"></td>
         </tr>
     </table>
 </div>

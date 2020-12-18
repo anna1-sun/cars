@@ -1,29 +1,32 @@
 package com.company.springmvc.demo.data;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.w3c.dom.stylesheets.LinkStyle;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Entity
-    @Table
-    public class Category {
-        @Id
-        @GeneratedValue
-        @Column(name = "id")
-        private int id;
-        @Column(name = "name")
-        private String name;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table
+public class Category {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    private int id;
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Limit> limitList = new ArrayList<>();
 
 
-
-
-    }
+}
 
 
