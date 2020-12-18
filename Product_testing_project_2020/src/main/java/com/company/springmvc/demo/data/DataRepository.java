@@ -73,4 +73,29 @@ public class DataRepository {
         }
         return new ArrayList<>();
     }
+
+    public void addProduct(Product product){
+        var session = factory.openSession();
+
+        try {
+             session.save(product);
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
+
+    public Product getProductById(int id){
+    var session = factory.openSession();
+
+        try {
+          return session.get(Product.class, id);
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
 }

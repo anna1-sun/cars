@@ -18,5 +18,7 @@ public class Bacteria {
     private int id;
     @Column(name = "name")
     private String name;
+
+
 }
 
