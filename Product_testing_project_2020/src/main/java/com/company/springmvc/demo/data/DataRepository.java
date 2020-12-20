@@ -1,7 +1,9 @@
 package com.company.springmvc.demo.data;
 
+import lombok.NonNull;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
@@ -50,6 +52,19 @@ public class DataRepository {
         return new ArrayList<>();
     }
 
+    public Category getCategory(int id) {
+        var session = factory.openSession();
+
+        try {
+            return session.get(Category.class, id);
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
     public Iterable<Product> getBacterias() {
         var session = factory.openSession();
 
@@ -62,6 +77,7 @@ public class DataRepository {
         }
         return new ArrayList<>();
     }
+
     public Iterable<Product> getLimits() {
         var session = factory.openSession();
 
@@ -75,28 +91,52 @@ public class DataRepository {
         return new ArrayList<>();
     }
 
-    public void addProduct(Product product){
+
+    public Product getProductById(int id) {
         var session = factory.openSession();
 
         try {
-             session.save(product);
-        } catch (HibernateException exception) {
-            System.err.println(exception);
-        } finally {
-            session.close();
-        }
-    }
-
-    public Product getProductById(int id){
-    var session = factory.openSession();
-
-        try {
-          return session.get(Product.class, id);
+            return session.get(Product.class, id);
         } catch (HibernateException exception) {
             System.err.println(exception);
         } finally {
             session.close();
         }
         return null;
+    }
+
+    public void updateProduct(@NonNull Object item) {
+        var session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(item);
+            tx.commit();
+        } catch (HibernateException exception) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+
+    }
+    public void addProduct(@NonNull Product product) {
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.save(product);
+            tx.commit();
+        } catch (HibernateException exception) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
     }
 }

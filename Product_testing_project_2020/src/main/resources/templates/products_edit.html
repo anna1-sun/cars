@@ -50,9 +50,13 @@
             <label for="shelfLife" class="form-label">Shelf life</label>
             <input type="text" class="form-control" name="shelfLife" id="shelfLife">
         </div>
+
         <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
-            <input type="text" class="form-control" name="name" id="category">
+            <label for="categoryId" class="form-label">Category</label>
+            <select name="categoryId" id="categoryId" class="form-control">
+                <option value="select category"></option>
+                <option th:selected="${product.getCategory() != null && product.getCategory().getId() == category.getId()}" th:each="category: ${categories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
+            </select>
         </div>
 
         <a href="/products" class="btn btn-danger" role="button">Cancel</a>

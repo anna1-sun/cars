@@ -34,20 +34,42 @@
     </nav>
     <!--<a href="/products" title="Get product list" >Owners</a>-->
     <h1 th:text="${title}"></h1>
+
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a href="/products/0" class="btn btn-primary" style="margin-top: 5px">Add new product</a>
+        </li>
+    </ul>
+
     <table class="table table-hover">
         <tr>
-            <th>Id</th>
+<!--            <th>Id</th>-->
             <th>Code</th>
             <th>Name</th>
             <th>Shelf life</th>
             <th>Category</th>
+            <th>&nbsp;</th>
+
         <tr/>
         <tr th:each="product: ${products}">
-            <td th:text="${product.getId()}"></td>
+<!--            <td th:text="${product.getId()}"></td>-->
             <td th:text="${product.getCode()}"></td>
             <td th:text="${product.getName()}"></td>
             <td th:text="${product.getShelfLife()}"></td>
-            <td th:text="${product.getCategoryId()}"></td>
+            <td th:text="${product.getCategory().getName()}"></td>
+
+
+            <td class="action-column">
+                <a th:href="${'/products/results/' + product.getId()}" class="btn btn-outline-primary">
+                    <img th:src="@{/img/result.svg}">Add result
+                </a>
+                <a th:href="${'/products/' + product.getId()}" class="btn btn-outline-secondary">
+                    <img th:src="@{/img/edit.svg}">
+                </a>
+                <a th:href="${'/products/' + product.getId()}" class="btn btn-outline-danger">
+                    <img th:src="@{/img/delete.svg}">
+                </a>
+            </td>
         </tr>
     </table>
 </div>
