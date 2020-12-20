@@ -102,7 +102,13 @@ public class DataController {
             repo.addProduct(product);
         }
 
-
         return new ModelAndView("redirect:/products");
     }
+    @GetMapping("/products/delete/{id}")
+    public ModelAndView deleteProduct(@PathVariable int id) {
+        var repo = new DataRepository();
+        repo.deleteProduct(id);
+        return new ModelAndView("redirect:/products");
+    }
+
 }

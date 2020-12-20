@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class Limit {
 
     @Id
-    @ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 

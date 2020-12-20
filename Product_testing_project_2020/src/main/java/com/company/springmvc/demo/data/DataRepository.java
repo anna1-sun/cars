@@ -139,4 +139,25 @@ public class DataRepository {
             session.close();
         }
     }
+
+    public void deleteProduct(int id) {
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            var product = session.get(Product.class, id);
+            if(product != null){
+                session.delete(product);
+            }
+            tx.commit();
+        } catch (HibernateException exception) {
+            if(tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
 }

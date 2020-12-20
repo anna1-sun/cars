@@ -40,19 +40,23 @@
     <form method="post" th:action="${'/products/' + id}" name="updateDto">
         <div class="mb-3">
             <label for="code" class="form-label">Code</label>
-            <input type="text" class="form-control" name="code" id="code">
+            <input type="text" class="form-control" name="code" id="code" th:value="${product.getCode()}">
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" id="name">
+            <input type="text" class="form-control" name="name" id="name" th:value="${product.getName()}">
         </div>
         <div class="mb-3">
             <label for="shelfLife" class="form-label">Shelf life</label>
-            <input type="text" class="form-control" name="shelfLife" id="shelfLife">
+            <input type="text" class="form-control" name="shelfLife" id="shelfLife" th:value="${product.getName()}">
         </div>
+
         <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
-            <input type="text" class="form-control" name="name" id="category">
+            <label for="categoryId" class="form-label">Category</label>
+            <select name="categoryId" id="categoryId" class="form-control">
+                <option value="select category"></option>
+                <option th:selected="${product.getCategory() != null && product.getCategory().getId() == category.getId()}" th:each="category: ${categories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
+            </select>
         </div>
 
         <a href="/products" class="btn btn-danger" role="button">Cancel</a>
