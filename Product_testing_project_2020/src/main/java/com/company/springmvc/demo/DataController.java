@@ -2,6 +2,7 @@ package com.company.springmvc.demo;
 
 import com.company.springmvc.demo.data.DataRepository;
 import com.company.springmvc.demo.data.Product;
+import com.company.springmvc.demo.dto.ProductSearchDto;
 import com.company.springmvc.demo.dto.ProductUpdateDto;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -109,6 +110,16 @@ public class DataController {
         var repo = new DataRepository();
         repo.deleteProduct(id);
         return new ModelAndView("redirect:/products");
+    }
+    @PostMapping("/products")
+    public String searchProducts(@ModelAttribute("searchDto") ProductSearchDto dto, Model model){
+        var repo = new DataRepository();
+        var items = repo.getProducts(dto);
+
+        model.addAttribute("title", "Products");
+        model.addAttribute("products", items);
+
+        return "products";
     }
 
 }

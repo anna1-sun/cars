@@ -2,9 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
@@ -34,6 +37,17 @@
     </nav>
     <!--<a href="/products" title="Get product list" >Owners</a>-->
     <h1 th:text="${title}"></h1>
+    <form method="post" action="/products" name="searchDto">
+        <div class="mb-3">
+            <label for="code" class="form-label">Code</label>
+            <input type="text" class="form-control" name="code" id="code">
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" id="name">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
 
     <ul class="nav justify-content-end">
         <li class="nav-item">
@@ -43,7 +57,7 @@
 
     <table class="table table-hover">
         <tr>
-<!--            <th>Id</th>-->
+            <!--            <th>Id</th>-->
             <th>Code</th>
             <th>Name</th>
             <th>Shelf life</th>
@@ -52,7 +66,7 @@
 
         <tr/>
         <tr th:each="product: ${products}">
-<!--            <td th:text="${product.getId()}"></td>-->
+            <!--            <td th:text="${product.getId()}"></td>-->
             <td th:text="${product.getCode()}"></td>
             <td th:text="${product.getName()}"></td>
             <td th:text="${product.getShelfLife()}"></td>

@@ -1,5 +1,6 @@
 package com.company.springmvc.demo.data;
 
+import com.company.springmvc.demo.dto.ProductSearchDto;
 import lombok.NonNull;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -159,5 +160,49 @@ public class DataRepository {
         } finally {
             session.close();
         }
+    }
+    public Iterable<Product> getProducts(ProductSearchDto searchDto) {
+        var session = factory.openSession();
+
+        var code = searchDto.getCode();
+        var name = searchDto.getName();
+
+        try {
+            //return session.createQuery("FROM Product").list();
+            var sql = "FROM Product";
+
+            if(!code.isBlank() || !name.isBlank()){
+                sql += " where ";
+            }
+
+            if(!code.isBlank()){
+                sql += " code = :search_code";
+            }
+
+            if (!name.isBlank()){
+
+                if(!code.isBlank()){
+                    sql += " and ";
+                }
+
+                sql += " name = :search_name";
+            }
+
+            var query = session.createQuery(sql);
+
+            if(!code.isBlank()){
+                query.setParameter("search_code", code);
+            }
+            if(!name.isBlank()){
+                query.setParameter("search_name", name);
+            }
+            return query.list();
+
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return new ArrayList<>();
     }
 }

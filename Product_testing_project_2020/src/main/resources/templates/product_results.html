@@ -37,6 +37,8 @@
     </nav>
 
     <h1 th:text="${title}"></h1>
+
+
     <form method="post" th:action="${'/products/' + id}" name="updateDto">
         <div class="mb-3">
             <label for="code" class="form-label">Code</label>
