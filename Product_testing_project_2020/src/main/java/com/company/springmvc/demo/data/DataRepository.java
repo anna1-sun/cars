@@ -20,6 +20,7 @@ public class DataRepository {
                     addAnnotatedClass(Category.class).
                     addAnnotatedClass(Bacteria.class).
                     addAnnotatedClass(Limit.class).
+                    addAnnotatedClass(TestResultItem.class).
                     buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
@@ -197,6 +198,58 @@ public class DataRepository {
                 query.setParameter("search_name", name);
             }
             return query.list();
+
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return new ArrayList<>();
+    }
+
+    public void addResult(@NonNull Product product) {
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.save(product);
+            tx.commit();
+        } catch (HibernateException exception) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
+    public Iterable<Limit> getCategoryLimit(int categoryId) {
+        var session = factory.openSession();
+
+        try {
+            var sql = "FROM Limit where category_id = :catId";
+            var query = session.createQuery(sql);
+            query.setParameter("catId", categoryId);
+            var result = query.list();
+            return result;
+
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return new ArrayList<>();
+    }
+    public Iterable<TestResultItem> getTestResultItems(int productId) {
+        var session = factory.openSession();
+
+        try {
+            var sql = "FROM TestResultItem where product_id = :prodId";
+            var query = session.createQuery(sql);
+            query.setParameter("prodId", productId);
+            var result = query.list();
+            return result;
 
         } catch (HibernateException exception) {
             System.err.println(exception);

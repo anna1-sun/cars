@@ -2,8 +2,10 @@ package com.company.springmvc.demo;
 
 import com.company.springmvc.demo.data.DataRepository;
 import com.company.springmvc.demo.data.Product;
+import com.company.springmvc.demo.data.TestDataManager;
 import com.company.springmvc.demo.dto.ProductSearchDto;
 import com.company.springmvc.demo.dto.ProductUpdateDto;
+import com.company.springmvc.demo.dto.TestUpdateDto;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class DataController {
+
+    private DataRepository repo;
+    public DataController(){
+        repo = new DataRepository();
+    }
+
+
+
     @GetMapping("/products")
     public String product(Model model) {
 
-        var repo = new DataRepository();
         var items = repo.getProducts();
 
         model.addAttribute("title", "Products");
@@ -28,7 +37,6 @@ public class DataController {
     @GetMapping("/categories")
     public String category(Model model) {
 
-        var repo = new DataRepository();
         var items = repo.getCategories();
 
         model.addAttribute("title", "Categories");
@@ -39,7 +47,6 @@ public class DataController {
     @GetMapping("/bacterias")
     public String bacteria(Model model) {
 
-        var repo = new DataRepository();
         var items = repo.getBacterias();
 
         model.addAttribute("title", "Bacterias");
@@ -50,7 +57,6 @@ public class DataController {
     @GetMapping("/limits")
     public String limit(Model model) {
 
-        var repo = new DataRepository();
         var items = repo.getLimits();
 
         model.addAttribute("title", "Limits");
@@ -61,7 +67,6 @@ public class DataController {
     @GetMapping("/products/{id}")
     public String editProduct(@PathVariable int id, Model model) {
 
-        var repo = new DataRepository();
         var product = repo.getProductById(id);
 
         if(product == null){
@@ -78,18 +83,16 @@ public class DataController {
 
     @PostMapping("/products/{id}")
     public ModelAndView saveNewProduct(@PathVariable int id, @ModelAttribute("updateDto") ProductUpdateDto dto) {
-        var repo = new DataRepository();
+
         var product = repo.getProductById(id);
 
         if (product == null && id != 0) {
             throw new IllegalArgumentException("Item with such id not found");
         }
-
         if (id == 0) {
             product = new Product();
             product.setId(0);
         }
-
         product.setCode(dto.getCode());
         product.setName(dto.getName());
         product.setShelfLife(dto.getShelfLife());
@@ -113,7 +116,7 @@ public class DataController {
     }
     @PostMapping("/products")
     public String searchProducts(@ModelAttribute("searchDto") ProductSearchDto dto, Model model){
-        var repo = new DataRepository();
+
         var items = repo.getProducts(dto);
 
         model.addAttribute("title", "Products");
@@ -121,5 +124,20 @@ public class DataController {
 
         return "products";
     }
+    @GetMapping("/products/results/{id}")
+    public String addTestResult(@PathVariable int id, Model model) {
 
+
+        model.addAttribute("product",  repo.getProductById(id));
+        var testDataManager = new TestDataManager();
+
+        model.addAttribute("testResults", testDataManager.getTestResults(id));
+
+        return "product_results";
+    }
+//    @PostMapping("/products/{id}")
+//    public ModelAndView saveTestPosition(@PathVariable int id, @ModelAttribute("testResult")TestUpdateDto updateDto){
+//
+//        return new ModelAndView("redirect:/products/" + id);
+//    }//ŠIS POST MAPPING JĀPĀRBAUDA, JO NENOSTRĀDĀJA
 }

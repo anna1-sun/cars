@@ -66,9 +66,15 @@
 
         <tr/>
         <tr th:each="product: ${products}">
+<!--            <a th:text="${product.getName()}" th:href="${'/products/' +product.getId()}"></a>-->
             <!--            <td th:text="${product.getId()}"></td>-->
             <td th:text="${product.getCode()}"></td>
-            <td th:text="${product.getName()}"></td>
+            <td>
+            <a th:href="${'/products/' +product.getId()}" th:text="${product.getName()}"></a>
+            </td>
+
+
+
             <td th:text="${product.getShelfLife()}"></td>
             <td th:text="${product.getCategory().getName()}"></td>
 

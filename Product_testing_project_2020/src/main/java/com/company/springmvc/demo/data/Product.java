@@ -23,8 +23,8 @@ public class Product {
     @Column(name = "shelf_life")
     private int shelfLife;
 
-    @OneToOne
-    @JoinColumn(name = "category_id")
+    @OneToOne (cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
 }
