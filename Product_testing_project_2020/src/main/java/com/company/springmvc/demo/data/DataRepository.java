@@ -258,4 +258,37 @@ public class DataRepository {
         }
         return new ArrayList<>();
     }
+//    public TestResultItem getTestResultItem(int productId) {
+//        var session = factory.openSession();
+//
+//        try {
+//        session.get(TestResultItem.class, productId);
+//
+//        } catch (HibernateException exception) {
+//            System.err.println(exception);
+//        } finally {
+//            session.close();
+//        }
+//        return null;
+//    }
+//
+//    public void addTestResultItem(@NonNull TestResultItem testResultItem) {
+//        var session = factory.openSession();
+//        Transaction tx = null;
+//
+//        try {
+//            tx = session.beginTransaction();
+//            session.save(testResultItem);
+//            tx.commit();
+//        } catch (HibernateException exception) {
+//            if (tx != null) {
+//                tx.rollback();
+//            }
+//            System.err.println(exception);
+//        } finally {
+//            session.close();
+//        }
+//    }
+
+
 }

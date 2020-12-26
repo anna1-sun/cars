@@ -3,6 +3,7 @@ package com.company.springmvc.demo;
 import com.company.springmvc.demo.data.DataRepository;
 import com.company.springmvc.demo.data.Product;
 import com.company.springmvc.demo.data.TestDataManager;
+import com.company.springmvc.demo.data.TestResultItem;
 import com.company.springmvc.demo.dto.ProductSearchDto;
 import com.company.springmvc.demo.dto.ProductUpdateDto;
 import com.company.springmvc.demo.dto.TestUpdateDto;
@@ -135,9 +136,17 @@ public class DataController {
 
         return "product_results";
     }
-//    @PostMapping("/products/{id}")
-//    public ModelAndView saveTestPosition(@PathVariable int id, @ModelAttribute("testResult")TestUpdateDto updateDto){
+    @PostMapping("/products/results/{id}")
+    public ModelAndView saveTestPosition(@PathVariable int id, @ModelAttribute("testResult")TestUpdateDto dto){
+
+//        var testResultItem = repo.getTestResultItem(id);
 //
-//        return new ModelAndView("redirect:/products/" + id);
-//    }//ŠIS POST MAPPING JĀPĀRBAUDA, JO NENOSTRĀDĀJA
+//        if(testResultItem.getId() == 0){
+//            testResultItem.setTestValue(dto.getTestValue());
+//        }
+//
+//        repo.addTestResultItem(testResultItem);
+
+        return new ModelAndView("redirect:/products/results/" + id);
+    }
 }
