@@ -3,6 +3,7 @@ package com.company.springmvc.demo;
 import com.company.springmvc.demo.data.DataRepository;
 import com.company.springmvc.demo.data.Product;
 import com.company.springmvc.demo.data.TestDataManager;
+import com.company.springmvc.demo.data.TestResultItem;
 import com.company.springmvc.demo.dto.ProductSearchDto;
 import com.company.springmvc.demo.dto.ProductUpdateDto;
 import com.company.springmvc.demo.dto.TestUpdateDto;
@@ -135,9 +136,23 @@ public class DataController {
 
         return "product_results";
     }
-//    @PostMapping("/products/{id}")
-//    public ModelAndView saveTestPosition(@PathVariable int id, @ModelAttribute("testResult")TestUpdateDto updateDto){
-//
-//        return new ModelAndView("redirect:/products/" + id);
-//    }//ŠIS POST MAPPING JĀPĀRBAUDA, JO NENOSTRĀDĀJA
+
+    @PostMapping("/products/results/{id}")
+    public ModelAndView saveTestPosition(@PathVariable int id, @ModelAttribute("testResult")TestUpdateDto updateDto){
+        var product = repo.getProductById(id);
+        var bacteria = repo.getBacteriaId(updateDto.getBacteriaId());
+        var testResultItem = new TestResultItem(updateDto.getTestId(),
+                updateDto.getTestValue(),
+                updateDto.getCategoryLimit(),
+                updateDto.getBacteriaName(), product, bacteria);
+
+        if(updateDto.getTestId()==0){
+            repo.add(testResultItem);
+
+        }else{
+            repo.save(testResultItem);
+        }
+
+        return new ModelAndView("redirect:/products/" + id);
+    }
 }

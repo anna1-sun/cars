@@ -258,4 +258,49 @@ public class DataRepository {
         }
         return new ArrayList<>();
     }
+    public void save(@NonNull Object item) {
+        var session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(item);
+            tx.commit();
+        } catch (HibernateException exception) {
+            if(tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
+    public void add(@NonNull Object item) {
+        var session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.save(item);
+            tx.commit();
+        } catch (HibernateException exception) {
+            if(tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
+    public Bacteria getBacteriaId(int id) {
+        var session = factory.openSession();
+
+        try {
+            return session.get(Bacteria.class, id);
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
 }

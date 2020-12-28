@@ -15,9 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 public class TestResultDto {
 
+    private int id;
     private String bacteriaName;
     private int categoryLimit;
     private int value;
+    private int bacteriaId;
+
 }
 
 //    private Date date;

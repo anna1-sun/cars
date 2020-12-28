@@ -24,6 +24,7 @@ public class TestDataManager {
 
         List<TestResultDto> items = new ArrayList<>();
         for(var limit : limits){
+
            items.add(mapTestResult(limit, testResults));
         }
     return items;
@@ -38,15 +39,21 @@ public class TestDataManager {
         var bacteriaName = limit.getBacteria().getName();
         var categoryLimit = limit.getLimit();
         var testValue = 0;
+        var id =0;
+        var bacteriaId = limit.getBacteria().getId();
+
+
         if(testItem.isPresent()){
             var test = testItem.get();
             bacteriaName= test.getBacteriaName();
             categoryLimit = test.getCategoryLimit();
             testValue = test.getTestValue();
+            id = test.getId();
+            bacteriaId = test.getBacteria().getId();
 
         }
 
-        return new TestResultDto(bacteriaName, categoryLimit, testValue);
+        return new TestResultDto(id, bacteriaName, categoryLimit, testValue, bacteriaId);
     }
 }
 
