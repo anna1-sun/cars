@@ -8,21 +8,23 @@ import com.company.springmvc.demo.dto.ProductSearchDto;
 import com.company.springmvc.demo.dto.ProductUpdateDto;
 import com.company.springmvc.demo.dto.TestUpdateDto;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 public class DataController {
 
     private DataRepository repo;
-    public DataController(){
+
+    public DataController() {
         repo = new DataRepository();
     }
-
 
 
     @GetMapping("/products")
@@ -70,7 +72,7 @@ public class DataController {
 
         var product = repo.getProductById(id);
 
-        if(product == null){
+        if (product == null) {
             product = new Product();
         }
 
@@ -109,14 +111,16 @@ public class DataController {
 
         return new ModelAndView("redirect:/products");
     }
+
     @GetMapping("/products/delete/{id}")
     public ModelAndView deleteProduct(@PathVariable int id) {
         var repo = new DataRepository();
         repo.deleteProduct(id);
         return new ModelAndView("redirect:/products");
     }
+
     @PostMapping("/products")
-    public String searchProducts(@ModelAttribute("searchDto") ProductSearchDto dto, Model model){
+    public String searchProducts(@ModelAttribute("searchDto") ProductSearchDto dto, Model model) {
 
         var items = repo.getProducts(dto);
 
@@ -125,11 +129,12 @@ public class DataController {
 
         return "products";
     }
+
     @GetMapping("/products/results/{id}")
     public String addTestResult(@PathVariable int id, Model model) {
 
 
-        model.addAttribute("product",  repo.getProductById(id));
+        model.addAttribute("product", repo.getProductById(id));
         var testDataManager = new TestDataManager();
 
         model.addAttribute("testResults", testDataManager.getTestResults(id));
@@ -138,7 +143,7 @@ public class DataController {
     }
 
     @PostMapping("/products/results/{id}")
-    public ModelAndView saveTestPosition(@PathVariable int id, @ModelAttribute("testResult")TestUpdateDto updateDto){
+    public ModelAndView saveTestPosition(@PathVariable int id, @ModelAttribute("testResult") TestUpdateDto updateDto) {
         var product = repo.getProductById(id);
         var bacteria = repo.getBacteriaId(updateDto.getBacteriaId());
         var testResultItem = new TestResultItem(updateDto.getTestId(),
@@ -146,13 +151,45 @@ public class DataController {
                 updateDto.getCategoryLimit(),
                 updateDto.getBacteriaName(), product, bacteria);
 
-        if(updateDto.getTestId()==0){
+        if (updateDto.getTestId() == 0) {
             repo.add(testResultItem);
 
-        }else{
+        } else {
             repo.save(testResultItem);
         }
 
-        return new ModelAndView("redirect:/products/" + id);
+        return new ModelAndView("redirect:/products/results/" + id);
     }
-}
+
+    @GetMapping("/products/charts/{id}")
+    public String getPieChart(@PathVariable int id, Model model) {
+        var results = repo.getTestResultItems(id);
+
+        Map<String, Integer> graphData = new TreeMap<>();
+        for (var result: results) {
+            graphData.put(result.getBacteriaName(), result.getTestValue());
+            graphData.put(result.getBacteriaName() + " limit", result.getCategoryLimit());
+        }
+
+
+//        graphData.put("2017", 1256); //ŠĀDI BIJA PIEMĒRĀ
+//        graphData.put("2018", 3856);
+//        graphData.put("2019", 19807);
+        model.addAttribute("chartData", graphData);
+        return "google_charts";
+    }
+
+
+
+        //!!!!!!!FILE UPLOAD
+//    @GetMapping("file_upload")
+//    public String uploadFile(Model model) {
+//        return "file_upload";
+//    }
+//
+//    @PostMapping("file_upload")
+//    public String saveFile(@RequestParam("file") MultipartFile file, ModelMap modelMap) {
+//        return "file_upload";
+//    }
+    }
+

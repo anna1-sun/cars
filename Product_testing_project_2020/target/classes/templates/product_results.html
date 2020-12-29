@@ -6,10 +6,10 @@
     <title>Product details</title>
 </head>
 <body>
-<h1 th:text="${'Product result:' + product.getName()}"></h1>
+<h1 th:text="${'Product details:' + product.getName()}"></h1>
 
 
-<!--<form method="post" th:action="${'/products/results/' + id}" name="updateDto">-->
+<form method="post" th:action="${'/products/results/' + id}" name="updateDto">
 <table>
     <tr>
         <th>Bacteria</th>
@@ -22,11 +22,16 @@
         <td>
             <form name="testResult" th:action="${'/products/results/' + product.getId()}" method="post">
             <input type="number" th:value="${item.getValue()}" name="testValue">
-                <button type="submit" class="btn btn-success">Save</button>
+                <input type="hidden" th:value="${item.getId()}" name="testId">
+                <input type="hidden" th:value="${item.getBacteriaId()}" name="bacteriaId">
+                <input type="hidden" th:value="${item.getBacteriaName()}" name="bacteriaName">
+                <input type="hidden" th:value="${item.getCategoryLimit()}" name="categoryLimit">
+
+            <input type="submit" value="Save">
         </form>
         </td>
     </tr>
 </table>
-<!--</form>-->
+</form>
 </body>
 </html>

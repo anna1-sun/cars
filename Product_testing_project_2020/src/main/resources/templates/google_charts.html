@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Test result</title>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+<div align="center" style="width: 1000px;">
+    <h2>Test result analysis</h2>
+     </script>
+    <div id="chart_div"style="width: 900px; height: 550px;"></div> ></div>
+
+</div>
+<script th:inline="javascript">
+    var real_data = /*[[${chartData}]]*/'noValue';
+
+    $(document).ready(function() {
+        google.charts.load('current', {
+            packages : [ 'corechart', 'bar']
+        });
+        google.charts.setOnLoadCallback(drawColumnChart);
+        google.charts.setOnLoadCallback(drawPieChart);
+    });
+
+    function drawColumnChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'bacteria_name');
+        data.addColumn('number', 'test_value');
+        Object.keys(real_data).forEach(function(key) {
+            data.addRow([ key, real_data[key]]);
+        });
+        var options = {fontSize: 16,
+            title : 'Test result chart',
+            hAxis : {
+                title  : 'Bacterias', position: 'top',textStyle: {fontSize: 11}
+            } ,
+            vAxis : {
+                title : 'Test value'
+            }
+        };
+        var chart = new google.visualization.ColumnChart(document
+            .getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+</body>
+</html>
