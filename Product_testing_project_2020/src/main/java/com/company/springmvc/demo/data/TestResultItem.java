@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +17,9 @@ public class TestResultItem {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @Column(name="date")
+    private Date finishDate;
 
     @Column(name = "test_value")
     private int testValue;

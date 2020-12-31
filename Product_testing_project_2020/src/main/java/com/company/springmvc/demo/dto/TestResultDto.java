@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -20,6 +21,8 @@ public class TestResultDto {
     private int categoryLimit;
     private int value;
     private int bacteriaId;
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private Date finishDate;
 
 }
 

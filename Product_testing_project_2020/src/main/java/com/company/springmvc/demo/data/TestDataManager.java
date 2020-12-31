@@ -3,6 +3,8 @@ package com.company.springmvc.demo.data;
 import com.company.springmvc.demo.dto.TestResultDto;
 
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,7 @@ public class TestDataManager {
         var testValue = 0;
         var id =0;
         var bacteriaId = limit.getBacteria().getId();
+        Date finishDate = null;
 
 
         if(testItem.isPresent()){
@@ -51,10 +54,10 @@ public class TestDataManager {
             testValue = test.getTestValue();
             id = test.getId();
             bacteriaId = test.getBacteria().getId();
-
+            finishDate = test.getFinishDate();
         }
 
-        return new TestResultDto(id, bacteriaName, categoryLimit, testValue, bacteriaId);
+        return new TestResultDto(id, bacteriaName, categoryLimit, testValue, bacteriaId, finishDate);
     }
 }
 

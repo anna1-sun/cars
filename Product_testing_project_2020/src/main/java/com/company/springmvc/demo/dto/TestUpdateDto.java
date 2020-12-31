@@ -2,6 +2,9 @@ package com.company.springmvc.demo.dto;
 
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Date;
 
 @Data
 public class TestUpdateDto {
@@ -10,6 +13,7 @@ public class TestUpdateDto {
     private int bacteriaId;
     private String bacteriaName;
     private int categoryLimit;
-
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private Date finishDate;
 
 }

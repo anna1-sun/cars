@@ -147,13 +147,13 @@ public class DataController {
         var product = repo.getProductById(id);
         var bacteria = repo.getBacteriaId(updateDto.getBacteriaId());
         var testResultItem = new TestResultItem(updateDto.getTestId(),
+                updateDto.getFinishDate(),
                 updateDto.getTestValue(),
                 updateDto.getCategoryLimit(),
                 updateDto.getBacteriaName(), product, bacteria);
 
         if (updateDto.getTestId() == 0) {
             repo.add(testResultItem);
-
         } else {
             repo.save(testResultItem);
         }
