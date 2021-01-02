@@ -21,8 +21,8 @@ public class TestResultDto {
     private int categoryLimit;
     private int value;
     private int bacteriaId;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private Date finishDate;
+//    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private String finishDate;
 
 }
 

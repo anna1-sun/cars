@@ -19,7 +19,7 @@ public class TestResultItem {
     private int id;
 
     @Column(name="date")
-    private Date finishDate;
+    private String finishDate;
 
     @Column(name = "test_value")
     private int testValue;

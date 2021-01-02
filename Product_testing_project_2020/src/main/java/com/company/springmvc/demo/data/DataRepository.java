@@ -21,6 +21,7 @@ public class DataRepository {
                     addAnnotatedClass(Bacteria.class).
                     addAnnotatedClass(Limit.class).
                     addAnnotatedClass(TestResultItem.class).
+                    addAnnotatedClass(Month.class).
                     buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
@@ -33,6 +34,50 @@ public class DataRepository {
 
         try {
             return session.createQuery("FROM Product").list();
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return new ArrayList<>();
+    }
+
+    public Iterable<Month> getMonths() {
+        var session = factory.openSession();
+
+        try {
+            return session.createQuery("FROM Month").list();
+
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public Month getMonth(int id) {
+        var session = factory.openSession();
+
+        try {
+            return session.get(Month.class, id);
+
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public Iterable<Product> getProductsByMonth(int id) {
+        var session = factory.openSession();
+
+        try {
+            var sql = "FROM Product where month =" + id;
+
+            return session.createQuery(sql).list();
+
         } catch (HibernateException exception) {
             System.err.println(exception);
         } finally {
@@ -124,6 +169,7 @@ public class DataRepository {
         }
 
     }
+
     public void addProduct(@NonNull Product product) {
         var session = factory.openSession();
         Transaction tx = null;
@@ -149,12 +195,12 @@ public class DataRepository {
         try {
             tx = session.beginTransaction();
             var product = session.get(Product.class, id);
-            if(product != null){
+            if (product != null) {
                 session.delete(product);
             }
             tx.commit();
         } catch (HibernateException exception) {
-            if(tx != null) {
+            if (tx != null) {
                 tx.rollback();
             }
             System.err.println(exception);
@@ -162,6 +208,7 @@ public class DataRepository {
             session.close();
         }
     }
+
     public Iterable<Product> getProducts(ProductSearchDto searchDto) {
         var session = factory.openSession();
 
@@ -172,17 +219,17 @@ public class DataRepository {
             //return session.createQuery("FROM Product").list();
             var sql = "FROM Product";
 
-            if(!code.isBlank() || !name.isBlank()){
+            if (!code.isBlank() || !name.isBlank()) {
                 sql += " where ";
             }
 
-            if(!code.isBlank()){
+            if (!code.isBlank()) {
                 sql += " code = :search_code";
             }
 
-            if (!name.isBlank()){
+            if (!name.isBlank()) {
 
-                if(!code.isBlank()){
+                if (!code.isBlank()) {
                     sql += " and ";
                 }
 
@@ -191,10 +238,10 @@ public class DataRepository {
 
             var query = session.createQuery(sql);
 
-            if(!code.isBlank()){
+            if (!code.isBlank()) {
                 query.setParameter("search_code", code);
             }
-            if(!name.isBlank()){
+            if (!name.isBlank()) {
                 query.setParameter("search_name", name);
             }
             return query.list();
@@ -224,6 +271,7 @@ public class DataRepository {
             session.close();
         }
     }
+
     public Iterable<Limit> getCategoryLimit(int categoryId) {
         var session = factory.openSession();
 
@@ -241,6 +289,7 @@ public class DataRepository {
         }
         return new ArrayList<>();
     }
+
     public Iterable<TestResultItem> getTestResultItems(int productId) {
         var session = factory.openSession();
 
@@ -258,6 +307,7 @@ public class DataRepository {
         }
         return new ArrayList<>();
     }
+
     public void save(@NonNull Object item) {
         var session = factory.openSession();
         Transaction tx = null;
@@ -266,7 +316,7 @@ public class DataRepository {
             session.update(item);
             tx.commit();
         } catch (HibernateException exception) {
-            if(tx != null) {
+            if (tx != null) {
                 tx.rollback();
             }
             System.err.println(exception);
@@ -274,6 +324,7 @@ public class DataRepository {
             session.close();
         }
     }
+
     public void add(@NonNull Object item) {
         var session = factory.openSession();
         Transaction tx = null;
@@ -282,7 +333,7 @@ public class DataRepository {
             session.save(item);
             tx.commit();
         } catch (HibernateException exception) {
-            if(tx != null) {
+            if (tx != null) {
                 tx.rollback();
             }
             System.err.println(exception);
@@ -290,6 +341,7 @@ public class DataRepository {
             session.close();
         }
     }
+
     public Bacteria getBacteriaId(int id) {
         var session = factory.openSession();
 

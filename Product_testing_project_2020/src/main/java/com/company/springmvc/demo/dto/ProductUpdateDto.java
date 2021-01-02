@@ -2,7 +2,6 @@ package com.company.springmvc.demo.dto;
 
 import lombok.Data;
 
-import java.util.List;
 
 @Data
 public class ProductUpdateDto {
@@ -10,5 +9,6 @@ public class ProductUpdateDto {
     private String name;
     private int shelfLife;
     private int categoryId;
+    private int monthId;
 }
 

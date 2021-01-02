@@ -37,6 +37,25 @@ public class DataController {
         return "products";
     }
 
+    @GetMapping("/months/{id}")
+    public String getProductsByMonth(Model model, @PathVariable int id) {
+
+        var items = repo.getProductsByMonth(id);
+
+        model.addAttribute("products", items);
+        return "products";
+    }
+
+    @GetMapping("/months")
+    public String month(Model model) {
+
+        var items = repo.getMonths();
+
+        model.addAttribute("title", "Calendar");
+        model.addAttribute("months", items);
+        return "months";
+    }
+
     @GetMapping("/categories")
     public String category(Model model) {
 
@@ -80,6 +99,7 @@ public class DataController {
         model.addAttribute("product", product);
         model.addAttribute("id", id);
         model.addAttribute("categories", repo.getCategories());
+        model.addAttribute("months", repo.getMonths());
 
         return "products_edit";
     }
@@ -102,6 +122,9 @@ public class DataController {
 
         var category = repo.getCategory(dto.getCategoryId());
         product.setCategory(category);
+
+        var month = repo.getMonth(dto.getMonthId());
+        product.setMonth(month);
 
         if (id != 0) {
             repo.updateProduct(product);
@@ -166,7 +189,7 @@ public class DataController {
         var results = repo.getTestResultItems(id);
 
         Map<String, Integer> graphData = new TreeMap<>();
-        for (var result: results) {
+        for (var result : results) {
             graphData.put(result.getBacteriaName(), result.getTestValue());
             graphData.put(result.getBacteriaName() + " limit", result.getCategoryLimit());
         }
@@ -180,8 +203,7 @@ public class DataController {
     }
 
 
-
-        //!!!!!!!FILE UPLOAD
+    //!!!!!!!FILE UPLOAD
 //    @GetMapping("file_upload")
 //    public String uploadFile(Model model) {
 //        return "file_upload";
@@ -191,5 +213,5 @@ public class DataController {
 //    public String saveFile(@RequestParam("file") MultipartFile file, ModelMap modelMap) {
 //        return "file_upload";
 //    }
-    }
+}
 

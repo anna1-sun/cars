@@ -20,8 +20,7 @@
             <th>Bacteria</th>
             <th>Limit</th>
             <th>Value</th>
-            <th>Date</th>
-            <th>&nbsp;</th>
+            <!--            <th>Date</th>-->
         </tr>
         <tr th:each="item: ${testResults}">
             <td th:text="${item.getBacteriaName()}"></td>
@@ -42,12 +41,12 @@
     </table>
 </form>
 
-<ul class="nav justify-content-end">
-    <a th:href="${'/products/charts/' + product.getId()}" class="btn btn-outline-primary">
-        <!--                <img th:src="@{/img/result.svg}">-->
-        Graph
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a th:href="${'/products/charts/' + product.getId()}" class="btn btn-outline-primary btn-lg me-md-2">
+        <img th:src="@{/img/chart.svg}"> Chart
     </a>
-</ul>
+</div>
+
 
 <table class="table table-hover">
     <tr>
@@ -57,7 +56,7 @@
         <th>Value</th>
     </tr>
     <tr th:each="item: ${testResults}">
-        <td th:text="${item.getFinishDate()}"></td>
+        <td th:text="${item.getFinishDate()}" name="finishDate"></td>
         <td th:text="${item.getBacteriaName()}" name="bacteriaName"></td>
         <td th:text="${item.getCategoryLimit()}" name="categoryLimit"></td>
         <td th:text="${item.getValue()}" name="testValue"></td>

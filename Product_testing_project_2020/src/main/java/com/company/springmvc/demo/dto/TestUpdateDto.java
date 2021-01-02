@@ -13,7 +13,7 @@ public class TestUpdateDto {
     private int bacteriaId;
     private String bacteriaName;
     private int categoryLimit;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private Date finishDate;
+//    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private String finishDate;
 
 }

@@ -13,7 +13,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/products">
+            <a class="navbar-brand" href="/months">
                 <img th:src="@{/img/scientist.svg}" alt="Products" width="30">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -22,6 +22,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/months">Calendar</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/products">Products</a>
                     </li>
@@ -62,7 +65,8 @@
             <th>Name</th>
             <th>Shelf life</th>
             <th>Category</th>
-            <th>&nbsp;</th>
+            <th>Month</th>
+            <th style="width: 230px;">&nbsp;</th>
 
         <tr/>
         <tr th:each="product: ${products}">
@@ -77,7 +81,7 @@
 
             <td th:text="${product.getShelfLife()}"></td>
             <td th:text="${product.getCategory().getName()}"></td>
-
+            <td th:text="${product.getMonth().getName()}"></td>
 
             <td class="action-column">
                 <a th:href="${'/products/results/' + product.getId()}" class="btn btn-outline-primary">
@@ -86,7 +90,8 @@
                 <a th:href="${'/products/' + product.getId()}" class="btn btn-outline-secondary">
                     <img th:src="@{/img/edit.svg}">
                 </a>
-                <a th:href="${'/products/delete/' + product.getId()}" class="btn btn-outline-danger">
+
+                <a th:href="${'/products/delete/' + product.getId()}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this item?');">
                     <img th:src="@{/img/delete.svg}">
                 </a>
             </td>

@@ -59,6 +59,14 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <label for="month" class="form-label">Test on:</label>
+            <select name="month" id="month" class="form-control">
+                <option value="select month"></option>
+                <option th:selected="${product.getMonth() != null && product.getMonth().getId() == month.getId()}" th:each="month: ${months}" th:value="${month.getId()}" th:text="${month.getName()}"></option>
+            </select>
+        </div>
+
         <a href="/products" class="btn btn-danger" role="button">Cancel</a>
         <button type="submit" class="btn btn-success">Save</button>
     </form>

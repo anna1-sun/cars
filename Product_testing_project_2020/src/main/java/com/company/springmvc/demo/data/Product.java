@@ -27,4 +27,9 @@ public class Product {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
+    @OneToOne (cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "month_id", referencedColumnName = "id")
+    private Month month;
+
+
 }

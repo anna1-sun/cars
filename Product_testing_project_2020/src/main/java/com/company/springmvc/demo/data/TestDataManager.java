@@ -44,7 +44,7 @@ public class TestDataManager {
         var testValue = 0;
         var id =0;
         var bacteriaId = limit.getBacteria().getId();
-        Date finishDate = null;
+        String finishDate = null;
 
 
         if(testItem.isPresent()){
