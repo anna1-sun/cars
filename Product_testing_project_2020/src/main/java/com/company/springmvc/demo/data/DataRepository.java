@@ -60,8 +60,8 @@ public class DataRepository {
         var session = factory.openSession();
 
         try {
-            return session.get(Month.class, id);
-
+            var month = session.get(Month.class, id);
+            return month;
         } catch (HibernateException exception) {
             System.err.println(exception);
         } finally {
