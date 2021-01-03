@@ -76,15 +76,15 @@ public class DataController {
         return "bacterias";
     }
 
-    @GetMapping("/limits")
-    public String limit(Model model) {
-
-        var items = repo.getLimits();
-
-        model.addAttribute("title", "Limits");
-        model.addAttribute("limits", items);
-        return "limits";
-    }
+//    @GetMapping("/limits")
+//    public String limit(Model model) {
+//
+//        var items = repo.getLimits();
+//
+//        model.addAttribute("title", "Limits");
+//        model.addAttribute("limits", items);
+//        return "limits";
+//    }
 
     @GetMapping("/products/{id}")
     public String editProduct(@PathVariable int id, Model model) {

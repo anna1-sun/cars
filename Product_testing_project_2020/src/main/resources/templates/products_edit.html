@@ -60,8 +60,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="month" class="form-label">Test on:</label>
-            <select name="month" id="month" class="form-control">
+            <label for="monthId" class="form-label">Test on:</label>
+            <select name="monthId" id="monthId" class="form-control">
                 <option value="select month"></option>
                 <option th:selected="${product.getMonth() != null && product.getMonth().getId() == month.getId()}" th:each="month: ${months}" th:value="${month.getId()}" th:text="${month.getName()}"></option>
             </select>
