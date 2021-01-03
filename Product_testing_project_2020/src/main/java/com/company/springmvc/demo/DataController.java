@@ -136,10 +136,22 @@ public class DataController {
     }
 
     @GetMapping("/products/delete/{id}")
-    public ModelAndView deleteProduct(@PathVariable int id) {
-        var repo = new DataRepository();
+    public ModelAndView deleteProducts(@PathVariable int id) {
+//        var repo = new DataRepository();
         repo.deleteProduct(id);
         return new ModelAndView("redirect:/products");
+    }
+    @GetMapping("/products/confirm/{id}")
+    public String confirmProductDelete(@PathVariable int id, Model model) {
+
+        var items = repo.getProducts();
+        var product = repo.getProductById(id);
+
+        model.addAttribute("title", "Products");
+        model.addAttribute("products", items);
+        model.addAttribute("confirmDeleteId", product);
+
+        return "products";
     }
 
     @PostMapping("/products")

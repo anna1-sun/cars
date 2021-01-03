@@ -92,6 +92,12 @@
         </li>
     </ul>
 
+    <div class="alert alert-light" role="alert" th:if="${confirmDeleteId != null}">
+        Do you want to delete product - <span th:text="${confirmDeleteId != null ? confirmDeleteId.getName() : ''}"></span>
+        <a th:href="${confirmDeleteId != null ?   '/products/delete/' +confirmDeleteId.getId() : '/products'}" class="btn btn-danger">Delete</a>
+        <a href="/products" class="btn btn-dark">Cancel</a>
+    </div>
+
     <table>
         <tr>
             <!--            <th>Id</th>-->
@@ -125,9 +131,13 @@
                     <img th:src="@{/img/edit.svg}">
                 </a>
 
-                <a th:href="${'/products/delete/' + product.getId()}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+<!--                <a th:href="${'/products/delete/' + product.getId()}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this item?');">-->
+<!--                    <img th:src="@{/img/delete.svg}">-->
+<!--                </a>-->
+                <a th:href="${'/products/confirm/' +product.getId()}" class="btn btn-outline-danger">
                     <img th:src="@{/img/delete.svg}">
                 </a>
+
             </td>
         </tr>
     </table>

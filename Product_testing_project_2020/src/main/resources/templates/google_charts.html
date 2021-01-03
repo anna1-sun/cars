@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -9,27 +8,85 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--    <link rel="stylesheet"-->
+<!--          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+    <script type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        A.class1 {
+            margin-left: auto;
+            margin-right: auto;
+            /*color: rgb(25,51,0);*/
+            font-size: large;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        A.class2{
+            color: black;
+            text-decoration: none;
+        }
+        A.class2:hover{
+            color: dimgray;
+            text-decoration: none;
+        }
+
+        tr:hover{
+            background: rgba(255,255,255,1);
+        }
+        td{
+            padding: 10px;
+            font-weight: 400;
+            border: dimgray dotted 1px;
+        }
+        div{
+            background: rgba(255,255,255,0.8);
+        }
+    </style>
+</head>
+<body th:style="'background: url(/img/food.jpg) no-repeat'">
+<div align="center" class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/months">
+                <img th:src="@{/img/scientist.svg}" alt="Products" width="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link class1" aria-current="page" href="/months">Calendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link class1" aria-current="page" href="/products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link class1" aria-current="page" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link class1" aria-current="page" href="/bacterias">Bacterias</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 <head>
     <meta charset="ISO-8859-1">
     <title>Test result</title>
-
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script type="text/javascript"
-            src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
 
-<div align="center" style="width: 1000px;">
+<div align="center" style="width: 1000px;"></div>
 
     <h2>Test result analysis</h2>
      </script>
-    <div id="chart_div"style="width: 900px; height: 550px;"></div> ></div>
+    <div id="chart_div"style="width: 1250px; height: 500px"></div>
 
-</div>
 <script th:inline="javascript">
     var real_data = /*[[${chartData}]]*/'noValue';
 
@@ -51,17 +108,17 @@
             data.addRow([ key, real_data[key]]);
 
         });
-        var options = {fontSize: 15, colors: ['#e9980e'], width: 1300,
+        var options = {fontSize: 15, colors: ['#e9980e'], position: screen,
             title : 'Test result chart',
             hAxis : { title : 'Bacterias', position: 'top',textStyle: {fontSize: 9}} ,
             vAxis : { title : 'Test value'}};
-        // var chart = new google.visualization.ColumnChart(document
-        //     .getElementById('chart_div'));
-        // chart.draw(data, options);
+        var chart = new google.visualization.ColumnChart(document
+            .getElementById('chart_div'));
+        chart.draw(data, options);
 
-        var chart = new google.charts.Bar(document.getElementById('chart_div'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
+        // var chart = new google.charts.Bar(document.getElementById('chart_div'));
+        //
+        // chart.draw(data, google.charts.Bar.convertOptions(options));
     }
 </script>
 </body>
