@@ -254,23 +254,23 @@ public class DataRepository {
         return new ArrayList<>();
     }
 
-    public void addResult(@NonNull Product product) {
-        var session = factory.openSession();
-        Transaction tx = null;
-
-        try {
-            tx = session.beginTransaction();
-            session.save(product);
-            tx.commit();
-        } catch (HibernateException exception) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            System.err.println(exception);
-        } finally {
-            session.close();
-        }
-    }
+//    public void addResult(@NonNull Product product) {
+//        var session = factory.openSession();
+//        Transaction tx = null;
+//
+//        try {
+//            tx = session.beginTransaction();
+//            session.save(product);
+//            tx.commit();
+//        } catch (HibernateException exception) {
+//            if (tx != null) {
+//                tx.rollback();
+//            }
+//            System.err.println(exception);
+//        } finally {
+//            session.close();
+//        }
+//    }
 
     public Iterable<Limit> getCategoryLimit(int categoryId) {
         var session = factory.openSession();
