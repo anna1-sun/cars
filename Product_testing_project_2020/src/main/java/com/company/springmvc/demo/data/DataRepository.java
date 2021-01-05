@@ -125,18 +125,18 @@ public class DataRepository {
         return new ArrayList<>();
     }
 
-    public Iterable<Product> getLimits() {
-        var session = factory.openSession();
-
-        try {
-            return session.createQuery("FROM Limit").list();
-        } catch (HibernateException exception) {
-            System.err.println(exception);
-        } finally {
-            session.close();
-        }
-        return new ArrayList<>();
-    }
+//    public Iterable<Product> getLimits() {
+//        var session = factory.openSession();
+//
+//        try {
+//            return session.createQuery("FROM Limit").list();
+//        } catch (HibernateException exception) {
+//            System.err.println(exception);
+//        } finally {
+//            session.close();
+//        }
+//        return new ArrayList<>();
+//    }
 
 
     public Product getProductById(int id) {
@@ -342,7 +342,7 @@ public class DataRepository {
         }
     }
 
-    public Bacteria getBacteriaId(int id) {
+    public Bacteria getBacteriaById(int id) {
         var session = factory.openSession();
 
         try {

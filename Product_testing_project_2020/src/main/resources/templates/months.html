@@ -19,7 +19,7 @@
             padding-bottom: 50px;
             padding-top: 50px;
             text-align: center;
-            background: rgba(229,255,204,0.6);
+            background: rgba(229,255,204,0.7);
         }
 
         td:hover {
@@ -38,6 +38,15 @@
         a:hover{
             color: green;
         }
+
+        nav{
+            background: rgba(255,255,255, 0.9);
+        }
+
+        table{
+            margin-right: auto;
+            margin-left: auto;
+        }
       </style>
 
 
@@ -45,7 +54,7 @@
 </head>
 <body th:style="'background: url(/img/food.jpg) no-repeat'">
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light nav-background">
+    <nav class="navbar navbar-expand-lg navbar-light" >
         <div class="container-fluid">
             <a class="navbar-brand" href="/months">
                 <img th:src="@{/img/scientist.svg}" alt="Products" width="30">
@@ -72,7 +81,9 @@
             </div>
         </div>
     </nav>
-    <div class="space"> </div>
+
+    <div class="space">&nbsp;</div>
+
     <table class="center">
 
         <tr>

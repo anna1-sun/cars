@@ -9,10 +9,49 @@
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
     <title>Product details</title>
+    <style>
+        div{
+            background: white;
+        }
+        table{
+            background: white;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    </style>
 </head>
 <body>
-<h1 th:text="${'Product details:' + product.getName()}"></h1>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/months">
+            <img th:src="@{/img/scientist.svg}" alt="Products" width="30">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/months">Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/categories">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/bacterias">Bacterias</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div>
+<h1 th:text="${'Product details:' + product.getName()}"></h1>
+</div>
 
 <form method="post" th:action="${'/products/results/' + id}" name="updateDto">
     <table class="table table-hover">
@@ -20,7 +59,7 @@
             <th>Bacteria</th>
             <th>Limit</th>
             <th>Value</th>
-            <!--            <th>Date</th>-->
+<!--                        <th>Date</th>-->
         </tr>
         <tr th:each="item: ${testResults}">
             <td th:text="${item.getBacteriaName()}"></td>
@@ -34,15 +73,15 @@
                     <input type="hidden" th:value="${item.getBacteriaName()}" name="bacteriaName">
                     <input type="hidden" th:value="${item.getCategoryLimit()}" name="categoryLimit">
 
-                    <input type="submit" value="Save">
+                    <input type="submit" value="Save" class="btn btn-success">
                 </form>
             </td>
         </tr>
     </table>
 </form>
 
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <a th:href="${'/products/charts/' + product.getId()}" class="btn btn-outline-primary btn-lg me-md-2">
+<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-right: 50px">
+    <a th:href="${'/products/charts/' + product.getId()}" class="btn btn-outline-success btn-lg me-md-2">
         <img th:src="@{/img/chart.svg}"> Chart
     </a>
 </div>

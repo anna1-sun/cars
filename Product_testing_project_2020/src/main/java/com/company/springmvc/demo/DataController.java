@@ -8,10 +8,8 @@ import com.company.springmvc.demo.dto.ProductSearchDto;
 import com.company.springmvc.demo.dto.ProductUpdateDto;
 import com.company.springmvc.demo.dto.TestUpdateDto;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -76,15 +74,6 @@ public class DataController {
         return "bacterias";
     }
 
-//    @GetMapping("/limits")
-//    public String limit(Model model) {
-//
-//        var items = repo.getLimits();
-//
-//        model.addAttribute("title", "Limits");
-//        model.addAttribute("limits", items);
-//        return "limits";
-//    }
 
     @GetMapping("/products/{id}")
     public String editProduct(@PathVariable int id, Model model) {
@@ -180,7 +169,7 @@ public class DataController {
     @PostMapping("/products/results/{id}")
     public ModelAndView saveTestPosition(@PathVariable int id, @ModelAttribute("testResult") TestUpdateDto updateDto) {
         var product = repo.getProductById(id);
-        var bacteria = repo.getBacteriaId(updateDto.getBacteriaId());
+        var bacteria = repo.getBacteriaById(updateDto.getBacteriaId());
         var testResultItem = new TestResultItem(updateDto.getTestId(),
                 updateDto.getFinishDate(),
                 updateDto.getTestValue(),
@@ -197,7 +186,7 @@ public class DataController {
     }
 
     @GetMapping("/products/charts/{id}")
-    public String getPieChart(@PathVariable int id, Model model) {
+    public String getChart(@PathVariable int id, Model model) {
         var results = repo.getTestResultItems(id);
 
         Map<String, Integer> graphData = new TreeMap<>();

@@ -21,21 +21,7 @@ public class TestResultDto {
     private int categoryLimit;
     private int value;
     private int bacteriaId;
-//    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private String finishDate;
 
 }
 
-//    private Date date;
-//
-//    @JsonProperty("code")
-//    private String code;
-//
-//    @JsonProperty("name")
-//    private String name;
-//
-//    @JsonProperty("bacteria")
-//    private List<Bacteria> bacterias;
-//
-//    @JsonProperty("baclimit")
-//    private List<Limit> baclimits;

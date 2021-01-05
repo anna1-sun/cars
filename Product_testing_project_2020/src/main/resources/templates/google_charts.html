@@ -42,6 +42,8 @@
         }
         div{
             background: rgba(255,255,255,0.8);
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
@@ -85,7 +87,7 @@
 
     <h2>Test result analysis</h2>
      </script>
-    <div id="chart_div"style="width: 1250px; height: 500px"></div>
+    <div id="chart_div"style="width: 1250px; height: 500px;  width: auto; margin: 0 auto !important;"></div>
 
 <script th:inline="javascript">
     var real_data = /*[[${chartData}]]*/'noValue';
@@ -111,7 +113,7 @@
         var options = {fontSize: 15, colors: ['#e9980e'], position: screen,
             title : 'Test result chart',
             hAxis : { title : 'Bacterias', position: 'top',textStyle: {fontSize: 9}} ,
-            vAxis : { title : 'Test value'}};
+            vAxis : { title : 'Test value (CFU/g)'}, logScale:true};
         var chart = new google.visualization.ColumnChart(document
             .getElementById('chart_div'));
         chart.draw(data, options);

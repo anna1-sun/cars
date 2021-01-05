@@ -12,35 +12,34 @@
         A.class1 {
             margin-left: auto;
             margin-right: auto;
-            /*color: rgb(25,51,0);*/
             font-size: large;
             font-weight: bold;
             text-decoration: none;
-
         }
-        A.class2{
+
+        A.class2 {
             color: black;
             text-decoration: none;
         }
-        A.class2:hover{
+
+        A.class2:hover {
             color: dimgray;
             text-decoration: none;
         }
 
-       tr:hover{
-           background: rgba(255,255,255,1);
-       }
-       td{
-           padding: 10px;
-           font-weight: 400;
-           border: dimgray dotted 1px;
-       }
-       div{
-           background: rgba(255,255,255,0.8);
-       }
+        tr:hover {
+            background: rgba(255, 255, 255, 1);
+        }
 
+        td {
+            padding: 10px;
+            font-weight: 400;
+            border: dimgray dotted 1px;
+        }
 
-
+        div {
+            background: white;
+        }
     </style>
 </head>
 <body th:style="'background: url(/img/food.jpg) no-repeat'">
@@ -93,8 +92,10 @@
     </ul>
 
     <div class="alert alert-light" role="alert" th:if="${confirmDeleteId != null}">
-        Do you want to delete product - <span th:text="${confirmDeleteId != null ? confirmDeleteId.getName() : ''}"></span>
-        <a th:href="${confirmDeleteId != null ?   '/products/delete/' +confirmDeleteId.getId() : '/products'}" class="btn btn-danger">Delete</a>
+        Do you want to delete product - <span
+            th:text="${confirmDeleteId != null ? confirmDeleteId.getName() : ''}"></span>
+        <a th:href="${confirmDeleteId != null ?   '/products/delete/' +confirmDeleteId.getId() : '/products'}"
+           class="btn btn-danger">Delete</a>
         <a href="/products" class="btn btn-dark">Cancel</a>
     </div>
 
@@ -110,13 +111,12 @@
 
         <tr/>
         <tr th:each="product: ${products}">
-<!--            <a th:text="${product.getName()}" th:href="${'/products/' +product.getId()}"></a>-->
+            <!--            <a th:text="${product.getName()}" th:href="${'/products/' +product.getId()}"></a>-->
             <!--            <td th:text="${product.getId()}"></td>-->
             <td th:text="${product.getCode()}"></td>
             <td>
-            <a class="class2" th:href="${'/products/' +product.getId()}" th:text="${product.getName()}"></a>
+                <a class="class2" th:href="${'/products/' +product.getId()}" th:text="${product.getName()}"></a>
             </td>
-
 
 
             <td th:text="${product.getShelfLife()}"></td>
@@ -124,23 +124,26 @@
             <td th:text="${product.getMonth().getName()}"></td>
 
             <td class="action-column">
-                <a th:href="${'/products/results/' + product.getId()}" class="btn btn-outline-success">
+                <a th:href="${'/products/results/' + product.getId()}" class="btn btn-outline-success"
+                   title="Add result">
                     <img th:src="@{/img/result.svg}">Add result
                 </a>
-                <a th:href="${'/products/' + product.getId()}" class="btn btn-outline-success">
+                <a th:href="${'/products/' + product.getId()}" class="btn btn-outline-success" title="Edit item">
                     <img th:src="@{/img/edit.svg}">
                 </a>
 
-<!--                <a th:href="${'/products/delete/' + product.getId()}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this item?');">-->
-<!--                    <img th:src="@{/img/delete.svg}">-->
-<!--                </a>-->
-                <a th:href="${'/products/confirm/' +product.getId()}" class="btn btn-outline-danger">
+                <!--                <a th:href="${'/products/delete/' + product.getId()}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this item?');">-->
+                <!--                    <img th:src="@{/img/delete.svg}">-->
+                <!--                </a>-->
+                <a th:href="${'/products/confirm/' +product.getId()}" class="btn btn-outline-danger"
+                   title="Delete item">
                     <img th:src="@{/img/delete.svg}">
                 </a>
 
             </td>
         </tr>
     </table>
+    <div class="space">&nbsp;</div>
 </div>
 </body>
 </html>
